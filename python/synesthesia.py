@@ -9,16 +9,16 @@ def create_hilight_groups():
     for i in range(NUM_COLORS):
         type = 'fg'
         color_type = 'cterm'
-        cmd = 'hi! def _synethesia' + str(i) +  ' ' + color_type + type + '=' + str(i)
+        cmd = 'hi! def _synesthesia' + str(i) +  ' ' + color_type + type + '=' + str(i)
         vim.command(cmd)
 
 def init():
     create_hilight_groups()
-    return 1
+    return 0
 
 def word_to_hilight_index(word):
-    digest = hashlib.md5(word).digest()
-    hash = ord(digest[-2]) * 16 + ord(digest[-1])
+    digest = hashlib.sha224(word).digest()
+    hash = ord(digest[0])
     return hash % NUM_COLORS
 
 def hilight_current_buffer():
@@ -26,6 +26,7 @@ def hilight_current_buffer():
 
     b = vim.current.buffer
 
+    # TODO: use a bloom filter to save on memory usage
     hilighted_words = None
     if b.number not in HILIGHTED_WORD_SETS:
         HILIGHTED_WORD_SETS[b.number] = set()
@@ -44,5 +45,5 @@ def hilight_current_buffer():
             continue
         hilighted_words.add(word)
         hilight_index = str(word_to_hilight_index(word))
-        cmd = 'syn keyword _synethesia' + hilight_index + " " + word
+        cmd = 'syn keyword _synesthesia' + hilight_index + " " + word
         vim.command(cmd)
