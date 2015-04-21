@@ -4,6 +4,7 @@ import hashlib
 
 NUM_COLORS = 256
 HILIGHTED_WORD_SETS = {}
+KEYWORD_SUFFIX = " containedin=phpBracketInString,phpVarSelector,phpClExpressions,phpIdentifier "
 
 def create_hilight_groups():
     for i in range(NUM_COLORS):
@@ -45,5 +46,5 @@ def hilight_current_buffer():
             continue
         hilighted_words.add(word)
         hilight_index = str(word_to_hilight_index(word))
-        cmd = 'syn keyword _synesthesia' + hilight_index + " " + word
+        cmd = 'syn keyword _synesthesia' + hilight_index + KEYWORD_SUFFIX + word
         vim.command(cmd)
