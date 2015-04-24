@@ -3,6 +3,10 @@ if exists("g:loaded_synesthesia") || v:version < 700 || &cp
   let g:loaded_synesthesia = 1
 endif
 
+if !exists('g:synesthesia_banned_console_colors')
+  let g:synesthesia_banned_console_colors = []
+endif
+
 " load python code into synesthesia module
 let s:python_dir = fnamemodify(expand("<sfile>"), ':p:h:h') . '/python'
 let s:python_file = s:python_dir . 'synesthesia.py'
