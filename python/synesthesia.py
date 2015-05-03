@@ -277,7 +277,12 @@ NUM_COLORS = 0
 
 HILIGHTED_WORD_SETS = {}
 KEYWORD_SUFFIX = " containedin=phpBracketInString,phpVarSelector,phpClExpressions,phpIdentifier "
-IGNORED_FILETYPES = frozenset(['help', 'text', 'diff'])
+IGNORED_FILETYPES = frozenset([
+'help',
+'text',
+'diff',
+'gitcommit'
+])
 
 def generate_console_colors():
     global CONSOLE_COLORS
