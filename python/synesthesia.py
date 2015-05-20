@@ -8,7 +8,6 @@ GUI_COLORS = {}
 NUM_COLORS = 0
 
 HILIGHTED_WORD_SETS = {}
-KEYWORD_SUFFIX = " containedin=phpBracketInString,phpVarSelector,phpClExpressions,phpIdentifier "
 IGNORED_FILETYPES = frozenset([
 'help',
 ])
@@ -70,11 +69,24 @@ def word_to_hilight_index(word):
     hash = ord(digest[0])
     return hash % NUM_COLORS
 
+def get_word_regexp(ft):
+    if ft == 'clojure':
+        return r'[a-zA-Z_\-][a-zA-Z0-9_\-\/]*'
+    else:
+        return r'[a-zA-Z_][a-zA-Z0-9_]*'
+
+def get_syn_suffix(ft):
+    if ft == 'php':
+        return "containedin=phpBracketInString,phpVarSelector,phpClExpressions,phpIdentifier"
+    else:
+        return ''
+
 def hilight_current_buffer():
     global HILIGHTED_WORD_SETS
 
     b = vim.current.buffer
-    if b.options['ft'] in IGNORED_FILETYPES:
+    ft = b.options['ft']
+    if ft in IGNORED_FILETYPES:
         return
 
     # TODO: use a bloom filter to save on memory usage
@@ -85,7 +97,7 @@ def hilight_current_buffer():
 
     word_set = set()
     for line in b:
-        words = re.finditer(r'[a-zA-Z_][a-zA-Z0-9_]*', line)
+        words = re.finditer(get_word_regexp(ft), line)
         for word in words:
             word = word.group(0)
             if len(word) > 0:
@@ -96,5 +108,5 @@ def hilight_current_buffer():
             continue
         hilighted_words.add(word)
         hilight_index = str(word_to_hilight_index(word))
-        cmd = 'syn keyword _synesthesia' + hilight_index + KEYWORD_SUFFIX + word
+        cmd = 'syn keyword _synesthesia' + hilight_index + ' ' + get_syn_suffix(ft) + ' ' + word
         vim.command(cmd)
