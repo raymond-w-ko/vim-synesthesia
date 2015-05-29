@@ -19,3 +19,4 @@ EOF
 autocmd BufReadPost * python synesthesia.hilight_current_buffer()
 autocmd BufWritePost * python synesthesia.hilight_current_buffer()
 autocmd CursorHold * python synesthesia.hilight_current_buffer()
+autocmd FileType * python synesthesia.clear_hilighted_words()

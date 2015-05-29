@@ -71,7 +71,7 @@ def word_to_hilight_index(word):
 
 def get_word_regexp(ft):
     if ft == 'clojure':
-        return r'[a-zA-Z_\-][a-zA-Z0-9_\-\/]*'
+        return r'[a-zA-Z_\-][a-zA-Z0-9_\-\>/\.]*'
     else:
         return r'[a-zA-Z_][a-zA-Z0-9_]*'
 
@@ -110,3 +110,10 @@ def hilight_current_buffer():
         hilight_index = str(word_to_hilight_index(word))
         cmd = 'syn keyword _synesthesia' + hilight_index + ' ' + get_syn_suffix(ft) + ' ' + word
         vim.command(cmd)
+
+def clear_hilighted_words():
+    global HILIGHTED_WORD_SETS
+
+    b = vim.current.buffer
+    if b.number in HILIGHTED_WORD_SETS:
+        HILIGHTED_WORD_SETS[b.number].clear()
