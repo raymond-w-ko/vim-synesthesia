@@ -69,10 +69,16 @@ def init():
     create_hilight_groups()
     return 0
 
+A = 42
+B = 1337
+PRIME = 65537
+
 def word_to_hilight_index(word):
-    digest = hashlib.sha224(word).digest()
-    hash = ord(digest[0])
-    return hash % NUM_COLORS
+    hash = hashlib.sha512(word)
+    hash = int(hash.hexdigest()[0:4], 16)
+    print(hash)
+    # universal hash hash(x) = ((ax + b) mod p) mod m
+    return ((hash * A + B) % PRIME) % NUM_COLORS
 
 def get_word_regexp(ft):
     if ft == 'clojure':
