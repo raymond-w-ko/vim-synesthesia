@@ -33,8 +33,13 @@ def generate_console_colors():
 def generate_gui_colors():
     global GUI_COLORS
 
+    override_colors = vim.eval('g:synesthesia_gui_color_table')
+
     for i in range(0, 256):
         console_color, hex_string = CLUT[i]
+        console_color = str(int(console_color, 10))
+        if console_color in override_colors:
+            hex_string = override_colors[console_color]
         GUI_COLORS[i] = '#' + hex_string
 
 def create_hilight_groups():

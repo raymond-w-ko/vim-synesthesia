@@ -6,6 +6,9 @@ endif
 if !exists('g:synesthesia_banned_console_colors')
   let g:synesthesia_banned_console_colors = []
 endif
+if !exists('g:synesthesia_gui_color_table')
+  let g:synesthesia_gui_color_table = {}
+endif
 
 " load python code into synesthesia module
 let s:python_dir = fnamemodify(expand("<sfile>"), ':p:h:h') . '/python'
