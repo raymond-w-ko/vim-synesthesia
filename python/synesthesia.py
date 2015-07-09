@@ -76,7 +76,6 @@ PRIME = 65537
 def word_to_hilight_index(word):
     hash = hashlib.sha512(word)
     hash = int(hash.hexdigest()[0:4], 16)
-    print(hash)
     # universal hash hash(x) = ((ax + b) mod p) mod m
     return ((hash * A + B) % PRIME) % NUM_COLORS
 
