@@ -69,8 +69,8 @@ def init():
     create_hilight_groups()
     return 0
 
-A = 42
-B = 1337
+A = 31415
+B = 31337
 PRIME = 65537
 
 def word_to_hilight_index(word):
