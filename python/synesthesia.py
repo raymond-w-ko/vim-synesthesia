@@ -69,13 +69,21 @@ def init():
     create_hilight_groups()
     return 0
 
-A = 31415
-B = 31337
-PRIME = 65537
+A     =  3141515926
+B     =  2718281828
+PRIME = 22801763489
+
+def djb2a(word):
+    hash = 5381;
+    for c in word:
+        # faster version of (hash * 33 ^ c) using bitshifting
+        hash = ((hash << 5) + hash) ^ ord(c)
+        # cast to uint32, is there a better way to do this Python?
+        hash = 0xFFFFFFFF & hash
+    return hash
 
 def word_to_hilight_index(word):
-    hash = hashlib.sha512(word)
-    hash = int(hash.hexdigest()[0:4], 16)
+    hash = djb2a(word)
     # universal hash hash(x) = ((ax + b) mod p) mod m
     return ((hash * A + B) % PRIME) % NUM_COLORS
 
