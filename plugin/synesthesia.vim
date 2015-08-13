@@ -14,6 +14,7 @@ endif
 let s:python_dir = fnamemodify(expand("<sfile>"), ':p:h:h') . '/python'
 let s:python_file = s:python_dir . 'synesthesia.py'
 python << EOF
+import vim
 sys.path.append(vim.eval("s:python_dir"))
 import synesthesia
 synesthesia.init()
