@@ -11,6 +11,10 @@ HILIGHTED_WORD_SETS = {}
 IGNORED_FILETYPES = frozenset([
 'help',
 ])
+INVALID_KEYWORDS = frozenset([
+'grouphere',
+'groupthere',
+])
 
 def generate_console_colors():
     global CONSOLE_COLORS
@@ -122,6 +126,8 @@ def hilight_current_buffer():
                 word_set.add(word)
 
     for word in word_set:
+        if word in INVALID_KEYWORDS:
+            continue
         if word in hilighted_words:
             continue
         hilighted_words.add(word)
