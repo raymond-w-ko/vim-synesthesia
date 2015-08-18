@@ -91,15 +91,22 @@ def word_to_hilight_index(word):
     # universal hash hash(x) = ((ax + b) mod p) mod m
     return ((hash * A + B) % PRIME) % NUM_COLORS
 
+WORD_REGEXP = {
+    'clojure' : r'[a-zA-Z_\-][a-zA-Z0-9_\-\>/\.]*',
+}
 def get_word_regexp(ft):
-    if ft == 'clojure':
-        return r'[a-zA-Z_\-][a-zA-Z0-9_\-\>/\.]*'
+    if ft in WORD_REGEXP:
+        return WORD_REGEXP[ft]
     else:
         return r'[a-zA-Z_][a-zA-Z0-9_]*'
 
+SYN_SUFFIX = {
+    'php' : 'containedin=phpBracketInString,phpVarSelector,phpClExpressions,phpIdentifier',
+    'vim' : 'containedin=vimIsCommand,vimUserFunc,vimFunc',
+}
 def get_syn_suffix(ft):
-    if ft == 'php':
-        return "containedin=phpBracketInString,phpVarSelector,phpClExpressions,phpIdentifier"
+    if ft in SYN_SUFFIX:
+        return SYN_SUFFIX[ft]
     else:
         return ''
 
