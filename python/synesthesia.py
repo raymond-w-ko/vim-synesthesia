@@ -10,6 +10,9 @@ NUM_COLORS = 0
 HILIGHTED_WORD_SETS = {}
 IGNORED_FILETYPES = frozenset([
 'help',
+'ogre',
+'text',
+'html',
 ])
 INVALID_KEYWORDS = frozenset([
 'grouphere',
